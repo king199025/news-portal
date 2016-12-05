@@ -2,6 +2,7 @@
 
 namespace common\models\db;
 
+use common\models\User;
 use Yii;
 
 /**
@@ -11,6 +12,7 @@ use Yii;
  * @property integer $user_id
  * @property integer $notify_email
  * @property integer $notify_browser
+ * @property integer $last_visit
  */
 class Options extends \yii\db\ActiveRecord
 {
@@ -29,7 +31,7 @@ class Options extends \yii\db\ActiveRecord
     {
         return [
             [['user_id'], 'required'],
-            [['user_id', 'notify_email', 'notify_browser'], 'integer'],
+            [['user_id', 'notify_email', 'notify_browser', 'last_visit'], 'integer'],
         ];
     }
 
@@ -43,6 +45,11 @@ class Options extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'notify_email' => 'Notify Email',
             'notify_browser' => 'Notify Browser',
+            'last_visit' => 'Последний визит'
         ];
+    }
+
+    public function getuser(){
+        return $this->hasOne(User::className(),['id'=>'user_id']);
     }
 }
